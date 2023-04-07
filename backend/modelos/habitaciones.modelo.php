@@ -126,4 +126,31 @@ class ModeloHabitaciones{
 
 	}
 
+	static public function mdlMostrarHabitacionesByIdTipo($tabla, $item, $valor){
+
+		if($item != null && $valor != null){
+
+			$stmt = Conexion::conectar()->prepare("SELECT GROUP_CONCAT(id_h) as id_habitaciones FROM $tabla WHERE $item = :$item");
+
+			$stmt -> bindParam(":".$item, $valor, PDO::PARAM_STR);
+
+			$stmt -> execute();
+
+			return $stmt -> fetchAll();
+
+		}else{
+
+			$stmt = Conexion::conectar()->prepare("SELECT GROUP_CONCAT(id_h) as id_habitaciones FROM $tabla ORDER BY id_h DESC");
+
+			$stmt -> execute();
+
+			return $stmt -> fetchAll();
+		}		
+
+		$stmt -> close();
+
+		$stmt = null;
+
+	}
+
 }	

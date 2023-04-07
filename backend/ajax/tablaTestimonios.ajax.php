@@ -2,6 +2,7 @@
 
 require_once "../controladores/testimonios.controlador.php";
 require_once "../modelos/testimonios.modelo.php";
+require_once "../modelos/habitaciones.modelo.php";
 
 class TablaTestimonios{
 
@@ -10,8 +11,13 @@ class TablaTestimonios{
 	=============================================*/ 
 
 	public function mostrarTabla(){
-
-		$testimonios = ControladorTestimonios::ctrMostrarTestimonios(null, null);
+		if(isset($_GET["habitacion"])){
+			$habitaciones = ModeloHabitaciones::mdlMostrarHabitacionesByIdTipo("habitaciones", "tipo_h", $_GET["habitacion"]);
+			$habitacionesArray = explode(",", $habitaciones[0]["id_habitaciones"]);
+			$testimonios = ControladorTestimonios::ctrMostrarTestimonios("id_hab", $habitacionesArray);
+		}else{
+			$testimonios = ControladorTestimonios::ctrMostrarTestimonios(null, null);
+		}
 
 		if(count($testimonios)== 0){
 

@@ -35,6 +35,32 @@ class ModeloTestimonios{
 
 	}
 
+	static public function mdlMostrarTestimoniosInArray($tabla, $item, $valor){
+
+		if($item != null && $valor != null && is_array($valor)){
+			$in_list = "'".implode("','",$valor)."'";
+			$stmt = Conexion::conectar()->prepare("SELECT *FROM $tabla WHERE $item IN (".$in_list.")");
+
+
+			$stmt -> execute();
+
+			return $stmt -> fetchAll();
+
+		}else{
+
+			$stmt = Conexion::conectar()->prepare("SELECT *FROM $tabla ORDER BY id_testimonio DESC");
+
+			$stmt -> execute();
+
+			return $stmt -> fetchAll();
+		}		
+
+		$stmt -> close();
+
+		$stmt = null;
+
+	}
+
 	/*=============================================
 	MOSTRAR TESTIMONIOS-RESERVAS-USUARIOS CON INNER JOIN
 	=============================================*/
