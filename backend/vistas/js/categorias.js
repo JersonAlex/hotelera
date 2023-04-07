@@ -375,6 +375,16 @@ $(document).on("click", ".eliminarCategoria", function(){
 
 })
 
+/*=============================================
+            Var testimonios
+=============================================*/
 
+$(document).on("click", ".verTestimonios", function(){
+  var idCategoria = $(this).attr("idCategoria");
+  var imgCategoria = $(this).attr("imgCategoria");
+  var tipoCategoria = $(this).attr("tipoCategoria");
+  // alert(idCategoria);
+  location.href = `/backend/testimonios?h=${idCategoria}`;
+});
 
 

@@ -10,7 +10,12 @@ class ControladorTestimonios{
 
 		$tabla = "testimonios";
 
-		$respuesta = ModeloTestimonios::mdlMostrarTestimonios($tabla, $item, $valor);
+		if(is_array($valor)){
+			$respuesta = ModeloTestimonios::mdlMostrarTestimoniosInArray($tabla, $item, $valor);
+		}else{
+			$respuesta = ModeloTestimonios::mdlMostrarTestimonios($tabla, $item, $valor);
+		}
+
 
 		return $respuesta;
 

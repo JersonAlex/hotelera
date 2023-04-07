@@ -14,7 +14,15 @@ Tabla Testimonios
 // })
 
 $(".tablaTestimonios").DataTable({
-  "ajax":"ajax/tablaTestimonios.ajax.php",
+  "ajax": {
+    "url": "ajax/tablaTestimonios.ajax.php",
+    "type": "GET",
+    "data": function ( d ) {
+      return $.extend( {}, d, {
+        "habitacion": getParameterByName("h")
+      } );
+    }
+  },
   "deferRender": true,
   "retrieve": true,
   "processing": true,
@@ -98,3 +106,10 @@ $(document).on("click", ".btnAprobar", function(){
     })
 
 })
+
+function getParameterByName(name) {
+  name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+  var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+  results = regex.exec(location.search);
+  return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
