@@ -45,5 +45,4 @@ Class ModeloHabitaciones{
 	}
 
 
-
 }
